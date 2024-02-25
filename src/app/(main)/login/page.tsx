@@ -25,25 +25,25 @@ export default function Login() {
       password: "",
     },
 
-    validate: {
-      username: (val) =>
-        /^[a-z0-9_-]+$/.test(val) ? null : "Invalid username",
-      password: (val) =>
-        val.length < 6 ? "Password should include at least 6 characters" : null,
-    },
+    validate: {},
   });
 
   async function login() {
     setOverlay(true);
     await apiLogin(form.values)
       .then((response) => {
-        if (response?.status === 400) {
-          setError("Invalid username or password.");
-        } else {
-          setError("Try again later.");
+        switch (response?.status) {
+          case 404:
+            setError("The user does not exist.");
+            break;
+          case 400:
+            setError("Invalid username or password.");
+            break;
+          default:
+            setError("Try again later.");
         }
       })
-      .catch(() => {
+      .catch((err) => {
         setError("Try again later.");
       })
       .finally(() => {

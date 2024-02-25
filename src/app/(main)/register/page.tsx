@@ -15,6 +15,7 @@ import { useState } from "react";
 import { apiRegister } from "../../../api";
 import ErrorAlert from "../../../components/alerts/error-alert";
 import PageContainer from "../../../components/page-container";
+import { REGEX_EMAIL, REGEX_PASSWORD, REGEX_USERNAME } from "../../../regexps";
 
 export default function Register() {
   const [overlay, setOverlay] = useState(false);
@@ -25,8 +26,7 @@ export default function Register() {
     await apiRegister(form.values)
       .then((response) => {
         if (response?.status === 400) {
-          setError(response?.data?.message || "Try again later.");
-        } else {
+          // NOTE: maybe use response?.field someday
           setError("Try again later.");
         }
       })
@@ -49,13 +49,16 @@ export default function Register() {
     },
 
     validate: {
-      username: (val) =>
-        /^[a-z0-9_-]+$/.test(val) ? null : "Invalid username",
-      email: (val) => (/^\S+@\S+$/.test(val) ? null : "Invalid email"),
-      password: (val) =>
-        val.length <= 6
-          ? "Password should include at least 6 characters"
-          : null,
+      username: (val) => (REGEX_USERNAME.test(val) ? null : "Invalid username"),
+      password: (val) => {
+        if (val.length < 8)
+          return "Password should include at least 8 characters";
+        if (val.length > 64) return "Password is too long";
+        if (!REGEX_PASSWORD.test(val))
+          return "Password must include at least 1 uppercase letter, 1 lowercase letter and 1 number";
+        return null;
+      },
+      email: (val) => (REGEX_EMAIL.test(val) ? null : "Invalid email"),
       repeatPassword: (val, values) =>
         val === values.password ? null : "The passwords don't match",
     },
