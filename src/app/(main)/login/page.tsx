@@ -29,6 +29,7 @@ export default function Login() {
   });
 
   async function login() {
+    if (overlay) return;
     setOverlay(true);
     await apiLogin(form.values)
       .then((response) => {
@@ -73,6 +74,7 @@ export default function Login() {
           className="z-[99] rounded-md"
           zIndex={99}
           overlayProps={{ blur: 2 }}
+          loaderProps={{ type: "bars" }}
         />
         <ErrorAlert title={error} visible={error != ""} />
         <TextInput

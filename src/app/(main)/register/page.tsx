@@ -22,6 +22,7 @@ export default function Register() {
   const [error, setError] = useState("");
 
   async function register() {
+    if (overlay) return;
     setOverlay(true);
     await apiRegister(form.values)
       .then((response) => {
@@ -88,6 +89,7 @@ export default function Register() {
           className="z-[99] rounded-md"
           zIndex={99}
           overlayProps={{ blur: 2 }}
+          loaderProps={{ type: "bars" }}
         />
         <ErrorAlert title={error} visible={error != ""} />
         <TextInput
