@@ -45,7 +45,7 @@ export async function apiLogin(body: LoginBody) {
       path: "/",
     });
 
-    redirect("/");
+    redirect("/app");
   }
 
   return response;

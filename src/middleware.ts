@@ -7,6 +7,10 @@ const privateRoutes = ["/app"];
 export function middleware(request: NextRequest) {
   const token = request.cookies.get("authToken")?.value;
 
+  if (token && request.nextUrl.pathname === "/") {
+    return NextResponse.redirect(new URL("/app", request.url));
+  }
+
   const isGuestRoute = guestRoutes.some((route) =>
     request.nextUrl.pathname.startsWith(route)
   );
