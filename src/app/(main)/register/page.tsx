@@ -15,7 +15,12 @@ import { useState } from "react";
 import { apiRegister } from "../../../api";
 import ErrorAlert from "../../../components/alerts/error-alert";
 import PageContainer from "../../../components/page-container";
-import { REGEX_EMAIL, REGEX_PASSWORD, REGEX_USERNAME } from "../../../regexps";
+import {
+  REGEX_ALPHANUMERIC,
+  REGEX_EMAIL,
+  REGEX_PASSWORD,
+  REGEX_USERNAME,
+} from "../../../regexps";
 
 export default function Register() {
   const [overlay, setOverlay] = useState(false);
@@ -50,6 +55,10 @@ export default function Register() {
     },
 
     validate: {
+      name: (val) =>
+        REGEX_ALPHANUMERIC.test(val)
+          ? null
+          : "Your name has invalid characters",
       username: (val) => (REGEX_USERNAME.test(val) ? null : "Invalid username"),
       password: (val) => {
         if (val.length < 8)
@@ -112,6 +121,7 @@ export default function Register() {
             form.setFieldValue("name", event.currentTarget.value)
           }
           radius="md"
+          error={form.errors.name}
         />
         <TextInput
           required
