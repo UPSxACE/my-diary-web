@@ -33,15 +33,28 @@ export default function AppShellSidebar({ loggedIn }: { loggedIn: boolean }) {
       )}
 
       {loggedIn ? (
-        <Button
-          variant="default"
-          className="rounded-none border-0 h-14 text-base"
-          classNames={{ inner: "justify-start" }}
-          onClick={onClick}
-          size="lg"
-        >
-          Logout
-        </Button>
+        <>
+          <Button
+            component={Link}
+            href="/app"
+            variant="default"
+            className="rounded-none border-0 h-14 text-base"
+            classNames={{ inner: "justify-start" }}
+            onClick={onClick}
+            size="lg"
+          >
+            My Notes
+          </Button>
+          <Button
+            variant="default"
+            className="rounded-none border-0 h-14 text-base"
+            classNames={{ inner: "justify-start" }}
+            onClick={onClick}
+            size="lg"
+          >
+            Log Out
+          </Button>
+        </>
       ) : (
         <>
           <Button

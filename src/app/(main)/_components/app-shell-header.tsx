@@ -38,7 +38,41 @@ export default async function AppShellHeader({
 
         <div className="flex-1 hidden xs:flex gap-2 justify-end items-center flex-wrap">
           {loggedIn ? (
-            <LogoutButton />
+            <>
+              <LogoutButton />
+              <Button component={Link} href="/app">
+                My Notes
+              </Button>
+
+              {/* <Menu position="top-end">
+                <MenuTarget>
+                  <Button
+                    variant="filled"
+                    className="p-1 block h-auto text-2xl text-white  !transform-none border-none "
+                  >
+                    <Avatar
+                      radius="xl"
+                      size="lg"
+                      classNames={{
+                        root: 'h-auto w-auto min-w-0 min-h-0',
+                        placeholder: 'bg-transparent text-white',
+                        image: 'h-[2.375rem] w-[2.375rem]',
+                      }}
+                      src={null}
+                    >
+                      <RxAvatar size={28} />
+                    </Avatar>
+                    <IoChevronDown />
+                  </Button>
+                </MenuTarget>
+                <MenuDropdown>
+                  <MenuItem className="text-lg" component={Link} href="/app">
+                    App
+                  </MenuItem>
+                  <LogoutButton menuItem />
+                </MenuDropdown>
+              </Menu> */}
+            </>
           ) : (
             <>
               <Button component={Link} href="/login" variant="default">
