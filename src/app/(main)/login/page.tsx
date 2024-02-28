@@ -61,7 +61,7 @@ export default function Login() {
         className="text-mantine-dimmed text-sm mt-2 mb-8 text-center"
       >
         Do not have an account yet?{" "}
-        <em className="not-italic text-mantine-mainColor-4">Create account</em>
+        <em className="not-italic text-mantine-primary-4">Create account</em>
       </Anchor>
       <Paper
         component="form"

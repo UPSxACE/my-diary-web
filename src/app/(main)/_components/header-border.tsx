@@ -19,7 +19,7 @@ export default function HeaderBorder() {
     <hr
       className={clsx(
         defaultClasses,
-        show && "!bg-mantine-gray-3 dark:!bg-mantine-gray-7"
+        show && "!bg-mantine-gray-3 dark:!bg-mantine-dark-4"
       )}
     />
   );

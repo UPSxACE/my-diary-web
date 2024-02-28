@@ -85,7 +85,7 @@ export default function Register() {
         className="text-mantine-dimmed text-sm mt-2 mb-8 text-center"
       >
         Already have an account?{" "}
-        <em className="not-italic text-mantine-mainColor-4">Login</em>
+        <em className="not-italic text-mantine-primary-4">Login</em>
       </Anchor>
       <Paper
         component="form"

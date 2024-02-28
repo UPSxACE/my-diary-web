@@ -1,3 +1,5 @@
+import AppPageContainer from "../../../components/app-page-container";
+
 export default function AppPage() {
-  return <div>App</div>;
+  return <AppPageContainer className="p-4">App</AppPageContainer>;
 }

@@ -1,7 +1,6 @@
 import type { Config } from "tailwindcss";
 
 const mantineColorTokens = [
-  "mainColor",
   "dark",
   "gray",
   "red",
@@ -29,6 +28,18 @@ const colors = mantineColorTokens.reduce(
   },
   {}
 );
+
+["filled", "filled-hover", "light", "light-hover", "light-color"].map(
+  (token) => {
+    colors[
+      `mantine-primary-${token}`
+    ] = `var(--mantine-primary-color-${token})`;
+  }
+);
+
+for (let i = 0; i <= 9; i++) {
+  colors[`mantine-primary-${i}`] = `var(--mantine-primary-color-${i})`;
+}
 
 const extra = {
   "mantine-text": "var(--mantine-color-text)",

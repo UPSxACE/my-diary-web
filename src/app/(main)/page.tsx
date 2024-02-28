@@ -8,7 +8,7 @@ export default function HomePage() {
       <article className="flex-1 flex flex-col justify-center items-center gap-5 lg:gap-14">
         <h1 className="m-0 text-2xl xs:text-3xl sm:text-4xl lg:text-5xl text-center dark:text-white">
           Empower your{" "}
-          <em className="not-italic text-mantine-mainColor-4">productivity</em>{" "}
+          <em className="not-italic text-mantine-primary-4">productivity</em>{" "}
           and your toughts
         </h1>
         <p className="m-0 mb-1 text-gray-500 dark:text-mantine-text text-lg xs:text-xl sm:text-xl lg:text-2xl max-w-[900px] text-center">

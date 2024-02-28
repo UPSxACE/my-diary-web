@@ -21,7 +21,7 @@ export default function AppShellSidebar({ loggedIn }: { loggedIn: boolean }) {
   return (
     <AppShellNavbar
       w={300}
-      className="mt-[1px] border-0 border-e border-mantine-gray-3 dark:border-mantine-gray-7"
+      className="mt-[1px] border-0 border-e border-mantine-gray-3 dark:border-mantine-dark-4"
     >
       {overlay && (
         <div
