@@ -21,13 +21,13 @@ export default function AppShellSidebar({ loggedIn }: { loggedIn: boolean }) {
   return (
     <AppShellNavbar
       w={300}
-      className="mt-[1px] border-0 border-e border-mantine-gray-3 dark:border-mantine-dark-4"
+      className="border-mantine-gray-3 dark:border-mantine-dark-4 mt-[1px] border-0 border-e"
     >
       {overlay && (
         <div
           className={clsx(
-            "absolute top-0 left-[300px] w-svw h-svh bg-black transition-opacity duration-[var(--app-shell-transition-duration)] xs:hidden",
-            state === 2 ? "opacity-50" : "opacity-0"
+            "xs:hidden absolute left-[300px] top-0 h-svh w-svw bg-black transition-opacity duration-[var(--app-shell-transition-duration)]",
+            state === 2 ? "opacity-50" : "opacity-0",
           )}
         />
       )}
@@ -38,7 +38,7 @@ export default function AppShellSidebar({ loggedIn }: { loggedIn: boolean }) {
             component={Link}
             href="/app"
             variant="default"
-            className="rounded-none border-0 h-14 text-base"
+            className="h-14 rounded-none border-0 text-base"
             classNames={{ inner: "justify-start" }}
             onClick={onClick}
             size="lg"
@@ -47,7 +47,7 @@ export default function AppShellSidebar({ loggedIn }: { loggedIn: boolean }) {
           </Button>
           <Button
             variant="default"
-            className="rounded-none border-0 h-14 text-base"
+            className="h-14 rounded-none border-0 text-base"
             classNames={{ inner: "justify-start" }}
             onClick={onClick}
             size="lg"
@@ -61,7 +61,7 @@ export default function AppShellSidebar({ loggedIn }: { loggedIn: boolean }) {
             component={Link}
             href="/login"
             variant="default"
-            className="rounded-none border-0 h-14 text-base"
+            className="h-14 rounded-none border-0 text-base"
             classNames={{ inner: "justify-start" }}
             onClick={burguerToggle}
             size="lg"
@@ -72,7 +72,7 @@ export default function AppShellSidebar({ loggedIn }: { loggedIn: boolean }) {
             component={Link}
             href="/register"
             variant="default"
-            className="rounded-none border-0 h-14 text-base"
+            className="h-14 rounded-none border-0 text-base"
             classNames={{ inner: "justify-start" }}
             onClick={burguerToggle}
             size="lg"

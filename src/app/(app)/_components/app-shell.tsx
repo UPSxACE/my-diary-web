@@ -41,10 +41,10 @@ export default function AppShell(props: { children: Readonly<ReactNode> }) {
       }}
     >
       <AppShellMantine
-        header={{ height: { base: 60, xs: 0 } }}
+        header={{ height: { base: 60, sm: 0 } }}
         navbar={{
           width: 300,
-          breakpoint: "xs",
+          breakpoint: "sm",
           collapsed: { mobile: !opened, desktop: false },
         }}
         padding={0}

@@ -6,10 +6,11 @@ import { usePathname } from "next/navigation";
 import { ComponentPropsWithoutRef, ReactElement } from "react";
 import { IconType } from "react-icons";
 
-interface SidebarButtonProps extends ComponentPropsWithoutRef<"button"> {
+interface SidebarButtonProps extends ComponentPropsWithoutRef<"a"> {
   className?: string;
   Icon: ReactElement<IconType>;
   navlink?: string;
+  onClick?: React.MouseEventHandler<HTMLAnchorElement>;
 }
 
 export default function SidebarButton({
@@ -17,6 +18,7 @@ export default function SidebarButton({
   className,
   Icon,
   navlink,
+  onClick,
 }: SidebarButtonProps) {
   const pathname = usePathname();
   const route = pathname.slice(1).split("/")[0];
@@ -30,6 +32,7 @@ export default function SidebarButton({
         }
       : {
           href: "",
+          onClick,
         };
 
   return (

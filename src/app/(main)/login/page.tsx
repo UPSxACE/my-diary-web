@@ -13,7 +13,7 @@ import Link from "next/link";
 import { useState } from "react";
 import { apiLogin } from "../../../api";
 import ErrorAlert from "../../../components/alerts/error-alert";
-import PageContainer from "../../../components/page-container";
+import PageContainer from "../../../components/page-containers/page-container";
 
 export default function Login() {
   const [overlay, setOverlay] = useState(false);
@@ -33,40 +33,41 @@ export default function Login() {
     setOverlay(true);
     await apiLogin(form.values)
       .then((response) => {
-        switch (response?.status) {
-          case 404:
-            setError("The user does not exist.");
-            break;
-          case 400:
-            setError("Invalid username or password.");
-            break;
-          default:
-            setError("Try again later.");
+        if (response?.ok === false) {
+          switch (response?.status) {
+            case 404:
+              setError("The user does not exist.");
+              break;
+            case 400:
+              setError("Invalid username or password.");
+              break;
+            default:
+              setError("Try again later.");
+          }
+          setOverlay(false);
         }
       })
       .catch((err) => {
         setError("Try again later.");
-      })
-      .finally(() => {
         setOverlay(false);
       });
   }
 
   return (
-    <PageContainer secondary className="p-4 justify-center items-center">
-      <h1 className="m-0 text-4xl font-bold text-center">Welcome Back!</h1>
+    <PageContainer secondary className="items-center justify-center p-4">
+      <h1 className="m-0 text-center text-4xl font-bold">Welcome Back!</h1>
       <Anchor
         component={Link}
         href="/register"
-        className="text-mantine-dimmed text-sm mt-2 mb-8 text-center"
+        className="text-mantine-dimmed mb-8 mt-2 text-center text-sm"
       >
         Do not have an account yet?{" "}
-        <em className="not-italic text-mantine-primary-4">Create account</em>
+        <em className="text-mantine-primary-4 not-italic">Create account</em>
       </Anchor>
       <Paper
         component="form"
         withBorder
-        className="w-full max-w-[420px] p-7 rounded-md gap-5 flex flex-col relative"
+        className="relative flex w-full max-w-[420px] flex-col gap-5 rounded-md p-7"
         onSubmit={form.onSubmit(login)}
       >
         <LoadingOverlay
@@ -101,7 +102,7 @@ export default function Login() {
           radius="md"
         />
 
-        <div className="flex items-center flex-wrap gap-4">
+        <div className="flex flex-wrap items-center gap-4">
           <Anchor
             component={Link}
             // TODO: Forgot password implementation

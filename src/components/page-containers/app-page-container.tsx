@@ -10,7 +10,7 @@ export default function AppPageContainer(props: AppPageContainerProps) {
   const classesPrimary =
     "flex flex-1 flex-col items-center bg-white dark:bg-mantine-dark-7";
   const classesSecondary =
-    "flex flex-1 flex-col items-center bg-mantine-gray-0 dark:bg-mantine-dark-6";
+    "flex flex-1 flex-col items-center bg-mantine-gray-0 dark:bg-mantine-dark-7";
   return (
     <div
       className={clsx(

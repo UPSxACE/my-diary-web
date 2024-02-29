@@ -14,7 +14,7 @@ import Link from "next/link";
 import { useState } from "react";
 import { apiRegister } from "../../../api";
 import ErrorAlert from "../../../components/alerts/error-alert";
-import PageContainer from "../../../components/page-container";
+import PageContainer from "../../../components/page-containers/page-container";
 import {
   REGEX_ALPHANUMERIC,
   REGEX_EMAIL,
@@ -31,15 +31,20 @@ export default function Register() {
     setOverlay(true);
     await apiRegister(form.values)
       .then((response) => {
-        if (response?.status === 400) {
-          // NOTE: maybe use response?.field someday
-          setError("Try again later.");
+        if (response?.ok === false) {
+          if (response?.status === 400) {
+            // NOTE: maybe use response?.field someday
+            // NOTE: For now just show the same message
+            setError("Try again later.");
+            setOverlay(false);
+          } else {
+            setError("Try again later.");
+            setOverlay(false);
+          }
         }
       })
       .catch(() => {
         setError("Try again later.");
-      })
-      .finally(() => {
         setOverlay(false);
       });
   }
@@ -75,22 +80,22 @@ export default function Register() {
   });
 
   return (
-    <PageContainer secondary className="p-4 justify-center items-center">
-      <h1 className="m-0 text-4xl font-bold text-center">
+    <PageContainer secondary className="items-center justify-center p-4">
+      <h1 className="m-0 text-center text-4xl font-bold">
         Welcome to MyDiary!
       </h1>
       <Anchor
         component={Link}
         href="/login"
-        className="text-mantine-dimmed text-sm mt-2 mb-8 text-center"
+        className="text-mantine-dimmed mb-8 mt-2 text-center text-sm"
       >
         Already have an account?{" "}
-        <em className="not-italic text-mantine-primary-4">Login</em>
+        <em className="text-mantine-primary-4 not-italic">Login</em>
       </Anchor>
       <Paper
         component="form"
         withBorder
-        className="w-full max-w-[420px] p-7 rounded-md gap-5 flex flex-col relative"
+        className="relative flex w-full max-w-[420px] flex-col gap-5 rounded-md p-7"
         onSubmit={form.onSubmit(register)}
       >
         <LoadingOverlay
@@ -159,7 +164,7 @@ export default function Register() {
           radius="md"
         />
 
-        <div className="flex items-center flex-wrap gap-4 max-xs:flex-col">
+        <div className="max-xs:flex-col flex flex-wrap items-center gap-4">
           <Checkbox
             label="I accept terms and conditions"
             checked={form.values.terms}

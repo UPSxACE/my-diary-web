@@ -8,7 +8,7 @@ export default function BurgerMenu() {
   const { burguerToggle } = useContext(AppShellContext);
   return (
     <Button
-      className="block xs:!hidden !text-white ml-auto p-2 h-12"
+      className="block sm:!hidden !text-white ml-auto p-2 h-12"
       variant="transparent"
       onClick={burguerToggle}
     >

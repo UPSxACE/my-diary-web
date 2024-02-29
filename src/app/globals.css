@@ -1,2 +1,6 @@
 @tailwind components;
 @tailwind utilities;
+
+.white-img-shadow {
+  filter: drop-shadow(1px 1px 1px #0000004f);
+}

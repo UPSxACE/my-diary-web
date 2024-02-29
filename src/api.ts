@@ -25,8 +25,9 @@ async function _post(route: string, body: { [key: string]: any }) {
 
   const status = response?.status;
   const data = await response.json();
+  const ok = response.ok;
 
-  return { status, data };
+  return { status, data, ok };
 }
 
 interface LoginBody {

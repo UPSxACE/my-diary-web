@@ -14,7 +14,7 @@ export default function DarkOverlay() {
     return (
       <div
         className={clsx(
-          "xs:hidden absolute left-[300px] top-0 h-svh w-svw bg-black transition-opacity duration-[var(--app-shell-transition-duration)]",
+          "absolute left-[300px] top-0 h-svh w-svw bg-black transition-opacity duration-[var(--app-shell-transition-duration)] sm:hidden",
           state === 2 ? "opacity-50" : "opacity-0",
         )}
       />
