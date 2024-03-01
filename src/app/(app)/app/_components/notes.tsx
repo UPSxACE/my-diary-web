@@ -1,8 +1,8 @@
 "use client";
+import Image from "next/image";
 import { useContext, useEffect, useState } from "react";
-import NotePreview, {
-  NotePreviewSkeleton,
-} from "../../../../components/notes/note-preview";
+import NotePreview from "../../../../components/notes/note-preview";
+import NotePreviewSkeleton from "../../../../components/notes/note-preview/skeleton";
 import ElementRepeater from "../../../../utils/element-repeater";
 import { NotesContext } from "../../_context/notes-context";
 
@@ -35,13 +35,14 @@ export default function Notes() {
   if (done && notes.length === 0) {
     return (
       <div className="flex flex-1 flex-col items-center justify-center px-6">
-        <img
+        <Image
+          width={557}
+          height={486}
           className="filter-[drop-shadow] white-img-shadow max-h-[40vh] w-full"
-          //className="max-h-[50vh] w-[40vw] min-w-[180px]"
           src="/notes-girl.svg"
           alt="Girl writing notes"
         />
-        <h1 className="xs:text-3xl text-mantine-text dark:text-mantine-gray-6 mt-8 text-center text-2xl font-medium">
+        <h1 className="mt-8 text-center text-2xl font-medium text-mantine-text xs:text-3xl dark:text-mantine-gray-6">
           Go ahead, and add your first note!
         </h1>
       </div>
