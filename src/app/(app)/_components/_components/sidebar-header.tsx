@@ -1,10 +1,16 @@
 import { Avatar, UnstyledButton } from "@mantine/core";
 import { IoPerson } from "react-icons/io5";
+import getProfileFromToken from "../../../../actions/get-profile-from-token";
+export default async function SidebarHeader() {
+  const userProfile = await getProfileFromToken();
 
-export default function SidebarHeader() {
+  if (userProfile === null) {
+    return null;
+  }
+
   return (
-    <div className="border-0 border-b border-solid border-mantine-gray-3 dark:border-mantine-dark-4 flex flex-col mb-4 pb-4">
-      <UnstyledButton className={"rounded-sm flex gap-4"}>
+    <div className="mb-4 flex flex-col border-0 border-b border-solid border-mantine-gray-3 pb-4 dark:border-mantine-dark-4">
+      <UnstyledButton className={"flex gap-4 rounded-sm"}>
         <Avatar
           radius="md"
           size="lg"
@@ -17,9 +23,13 @@ export default function SidebarHeader() {
         >
           <IoPerson size={22} />
         </Avatar>
-        <div className="flex flex-col h-full justify-between">
-          <span className="text-lg font-semibold leading-[1]">Ace</span>
-          <span className="text-sm text-mantine-dimmed leading-[1]">User</span>
+        <div className="flex h-full flex-col justify-between">
+          <span className="text-lg font-semibold leading-[1]">
+            {userProfile.username}
+          </span>
+          <span className="text-sm leading-[1] text-mantine-dimmed">
+            {userProfile.role}
+          </span>
         </div>
       </UnstyledButton>
     </div>

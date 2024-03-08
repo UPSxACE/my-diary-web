@@ -1,4 +1,5 @@
 import { AppShellNavbar } from "@mantine/core";
+import { cookies } from "next/headers";
 import { RiAddLine, RiFileList2Line } from "react-icons/ri";
 import DarkOverlay from "./_components/dark-overlay";
 import SidebarBody from "./_components/sidebar-body";
@@ -10,7 +11,7 @@ export default function AppShellSidebar() {
   return (
     <AppShellNavbar
       w={300}
-      className="border-mantine-gray-3 dark:border-mantine-dark-4 dark:bg-mantine-dark-6 border-0 border-e"
+      className="border-0 border-e border-mantine-gray-3 dark:border-mantine-dark-4 dark:bg-mantine-dark-6"
     >
       <DarkOverlay />
       <div className="absolute flex h-full w-[300px] flex-col px-6 py-4">
@@ -19,7 +20,7 @@ export default function AppShellSidebar() {
           <SidebarButton Icon={<RiFileList2Line />} navlink={"app"}>
             All Notes
           </SidebarButton>
-          <SidebarButton Icon={<RiAddLine />} navlink={"app/create"}>
+          <SidebarButton Icon={<RiAddLine />} navlink={"app/new-note"}>
             Create Note
           </SidebarButton>
         </SidebarBody>

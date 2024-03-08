@@ -9,7 +9,7 @@ export default function AppPage() {
   return (
     <AppPageContainer secondary className="p-4">
       <NotesContextProvider>
-        <div className="relative mb-4 flex w-full gap-4">
+        <header className="relative mb-4 flex w-full gap-4">
           <TextInput
             placeholder="Search"
             radius="xs"
@@ -17,7 +17,7 @@ export default function AppPage() {
             leftSection={<RiSearchLine />}
           />
           <FilterMenu />
-        </div>
+        </header>
         <Notes />
       </NotesContextProvider>
     </AppPageContainer>

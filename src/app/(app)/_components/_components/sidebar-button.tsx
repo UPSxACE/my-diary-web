@@ -21,14 +21,14 @@ export default function SidebarButton({
   onClick,
 }: SidebarButtonProps) {
   const pathname = usePathname();
-  const route = pathname.slice(1).split("/")[0];
+  const route = pathname.slice(1);
   const active = typeof navlink === "string" && navlink === route;
 
   const extraProps =
     typeof navlink === "string"
       ? {
           component: Link,
-          href: navlink,
+          href: "/" + navlink,
         }
       : {
           href: "",
@@ -39,7 +39,7 @@ export default function SidebarButton({
     <UnstyledButton
       {...extraProps}
       className={clsx(
-        "hover:bg-mantine-gray-1 dark:hover:bg-mantine-dark-5 text-mantine-gray-6 group flex items-center gap-3 rounded-[0.2rem] px-3 py-3 text-2xl hover:text-black dark:hover:text-white",
+        "group flex items-center gap-3 rounded-[0.2rem] px-3 py-3 text-2xl text-mantine-gray-6 hover:bg-mantine-gray-1 hover:text-black dark:hover:bg-mantine-dark-5 dark:hover:text-white",
         className,
         active && "!bg-mantine-primary-light !text-mantine-primary-4",
       )}
@@ -47,7 +47,7 @@ export default function SidebarButton({
       {Icon}
       <span
         className={clsx(
-          "text-mantine-gray-7 dark:text-mantine-gray-6 text-sm font-semibold group-hover:text-black dark:group-hover:text-white",
+          "text-sm font-semibold text-mantine-gray-7 group-hover:text-black dark:text-mantine-gray-6 dark:group-hover:text-white",
           active && "!text-mantine-primary-4",
         )}
       >

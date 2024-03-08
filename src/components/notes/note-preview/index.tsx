@@ -22,6 +22,7 @@ export default function NotePreview(props: NotePreviewProps) {
   const { id, title, content, createdAt } = props;
   return (
     <Paper
+      component="article"
       withBorder
       radius="xs"
       className="transition-all duration-300 hover:shadow-[0_0_11px_rgba(33,33,33,.2)] dark:bg-mantine-dark-6"

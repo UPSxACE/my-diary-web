@@ -34,7 +34,10 @@ export default function Notes() {
 
   if (done && notes.length === 0) {
     return (
-      <div className="flex flex-1 flex-col items-center justify-center px-6">
+      <section
+        id="notes"
+        className="flex flex-1 flex-col items-center justify-center px-6"
+      >
         <Image
           width={557}
           height={486}
@@ -45,17 +48,20 @@ export default function Notes() {
         <h1 className="mt-8 text-center text-2xl font-medium text-mantine-text xs:text-3xl dark:text-mantine-gray-6">
           Go ahead, and add your first note!
         </h1>
-      </div>
+      </section>
     );
   }
 
   return (
-    <div className="grid flex-1 auto-rows-min grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+    <section
+      id="notes"
+      className="grid flex-1 auto-rows-min grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4"
+    >
       {done ? (
         getNotePreviews()
       ) : (
         <ElementRepeater nRepeat={16} element={<NotePreviewSkeleton />} />
       )}
-    </div>
+    </section>
   );
 }
