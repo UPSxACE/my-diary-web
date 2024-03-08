@@ -10,14 +10,17 @@ import {
 } from "@mantine/core";
 import { useForm } from "@mantine/form";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
-import { apiLogin } from "../../../api";
+import useApi from "../../../api/hook";
 import ErrorAlert from "../../../components/alerts/error-alert";
 import PageContainer from "../../../components/page-containers/page-container";
 
 export default function Login() {
   const [overlay, setOverlay] = useState(false);
   const [error, setError] = useState("");
+  const api = useApi();
+  const router = useRouter();
 
   const form = useForm({
     initialValues: {
@@ -28,27 +31,25 @@ export default function Login() {
     validate: {},
   });
 
-  async function login() {
+  async function handleLogin() {
     if (overlay) return;
     setOverlay(true);
-    await apiLogin(form.values)
-      .then((response) => {
-        if (response?.ok === false) {
-          switch (response?.status) {
-            case 404:
-              setError("The user does not exist.");
-              break;
-            case 400:
-              setError("Invalid username or password.");
-              break;
-            default:
-              setError("Try again later.");
-          }
-          setOverlay(false);
-        }
+    api
+      .postLogin(form.values)
+      .then(() => {
+        router.push("/app");
       })
       .catch((err) => {
-        setError("Try again later.");
+        switch (err?.response?.status) {
+          case 404:
+            setError("The user does not exist.");
+            break;
+          case 400:
+            setError("Invalid username or password.");
+            break;
+          default:
+            setError("Try again later.");
+        }
         setOverlay(false);
       });
   }
@@ -59,16 +60,16 @@ export default function Login() {
       <Anchor
         component={Link}
         href="/register"
-        className="text-mantine-dimmed mb-8 mt-2 text-center text-sm"
+        className="mb-8 mt-2 text-center text-sm text-mantine-dimmed"
       >
         Do not have an account yet?{" "}
-        <em className="text-mantine-primary-4 not-italic">Create account</em>
+        <em className="not-italic text-mantine-primary-4">Create account</em>
       </Anchor>
       <Paper
         component="form"
         withBorder
         className="relative flex w-full max-w-[420px] flex-col gap-5 rounded-md p-7"
-        onSubmit={form.onSubmit(login)}
+        onSubmit={form.onSubmit(handleLogin)}
       >
         <LoadingOverlay
           visible={overlay}
@@ -107,7 +108,7 @@ export default function Login() {
             component={Link}
             // TODO: Forgot password implementation
             href="/forgot-password"
-            className="text-mantine-dimmed text-xs"
+            className="text-xs text-mantine-dimmed"
           >
             Forgot your password?
           </Anchor>

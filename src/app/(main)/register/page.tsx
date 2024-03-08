@@ -11,8 +11,9 @@ import {
 } from "@mantine/core";
 import { useForm } from "@mantine/form";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
-import { apiRegister } from "../../../api";
+import useApi from "../../../api/hook";
 import ErrorAlert from "../../../components/alerts/error-alert";
 import PageContainer from "../../../components/page-containers/page-container";
 import {
@@ -25,25 +26,25 @@ import {
 export default function Register() {
   const [overlay, setOverlay] = useState(false);
   const [error, setError] = useState("");
+  const api = useApi();
+  const router = useRouter();
 
-  async function register() {
+  async function handleRegister() {
     if (overlay) return;
     setOverlay(true);
-    await apiRegister(form.values)
-      .then((response) => {
-        if (response?.ok === false) {
-          if (response?.status === 400) {
-            // NOTE: maybe use response?.field someday
-            // NOTE: For now just show the same message
-            setError("Try again later.");
-            setOverlay(false);
-          } else {
-            setError("Try again later.");
-            setOverlay(false);
-          }
-        }
+    api
+      .postRegister(form.values)
+      .then(() => {
+        router.push("/app");
       })
-      .catch(() => {
+      .catch((err) => {
+        if (err?.response?.status === 400) {
+          // NOTE: maybe use response?.field someday
+          // NOTE: For now just show the same message
+          setError("Try again later.");
+          setOverlay(false);
+          return;
+        }
         setError("Try again later.");
         setOverlay(false);
       });
@@ -87,16 +88,16 @@ export default function Register() {
       <Anchor
         component={Link}
         href="/login"
-        className="text-mantine-dimmed mb-8 mt-2 text-center text-sm"
+        className="mb-8 mt-2 text-center text-sm text-mantine-dimmed"
       >
         Already have an account?{" "}
-        <em className="text-mantine-primary-4 not-italic">Login</em>
+        <em className="not-italic text-mantine-primary-4">Login</em>
       </Anchor>
       <Paper
         component="form"
         withBorder
         className="relative flex w-full max-w-[420px] flex-col gap-5 rounded-md p-7"
-        onSubmit={form.onSubmit(register)}
+        onSubmit={form.onSubmit(handleRegister)}
       >
         <LoadingOverlay
           visible={overlay}
@@ -164,7 +165,7 @@ export default function Register() {
           radius="md"
         />
 
-        <div className="max-xs:flex-col flex flex-wrap items-center gap-4">
+        <div className="flex flex-wrap items-center gap-4 max-xs:flex-col">
           <Checkbox
             label="I accept terms and conditions"
             checked={form.values.terms}
