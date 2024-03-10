@@ -1,6 +1,7 @@
 "use client";
 import axios, { AxiosInstance } from "axios";
 import { AppRouterInstance } from "next/dist/shared/lib/app-router-context.shared-runtime";
+import { LoginBody, NewNoteBody, RegisterBody } from "./types";
 
 const config = {
   baseURL: process.env.NEXT_PUBLIC_API_BASEURL,
@@ -51,16 +52,8 @@ export default class Api {
   async postRegister(registerBody: RegisterBody) {
     return this._post("/register", registerBody);
   }
-}
 
-interface LoginBody {
-  username: string;
-  password: string;
-}
-
-interface RegisterBody {
-  username: string;
-  name: string;
-  email: string;
-  password: string;
+  async postNotes(noteBody: NewNoteBody) {
+    return this._post("/notes", noteBody);
+  }
 }

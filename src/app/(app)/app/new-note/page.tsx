@@ -1,8 +1,70 @@
+"use client";
 import { Button, TextInput } from "@mantine/core";
+import { FormErrors, useForm } from "@mantine/form";
+import Link from "next/link";
+import { useRouter } from "next/navigation";
+import { useState } from "react";
+import useApi from "../../../../api/hook";
+import ErrorAlert from "../../../../components/alerts/error-alert";
 import AppPageContainer from "../../../../components/page-containers/app-page-container";
-import Editor from "./_components/editor";
+import useTimeout from "../../../../hooks/use-timeout";
+import Editor from "../../../../components/editor";
+import useEditorInstance from "../../../../components/editor/hook";
 
 export default function NewNotePage() {
+  const [loading, setLoading] = useState(false);
+
+  const form = useForm({
+    initialValues: {
+      title: "",
+      content: "",
+      contentRaw: "",
+    },
+    validate: {
+      title: (val) => (val.length < 3 ? "Title is too short" : null),
+      content: (val) => (val.length < 1 ? "The content cannot be empty" : null),
+      contentRaw: (val) =>
+        val.length < 1 ? "The content cannot be empty" : null,
+    },
+  });
+
+  const editor = useEditorInstance({
+    content: "",
+    onUpdate: ({ editor }) => {
+      const html = editor.getHTML();
+      const rawText = editor.getText();
+      form.setFieldValue("content", html);
+      form.setFieldValue("contentRaw", rawText);
+    },
+  });
+
+  const api = useApi();
+  const router = useRouter();
+  const timeout = useTimeout(4000);
+
+  function handleSave(values: typeof form.values) {
+    if (editor) {
+      setLoading(true);
+      editor.setEditable(false);
+      api
+        .postNotes(values)
+        .then((res) => {
+          const createdNoteId = res.data;
+          router.push("/note/" + createdNoteId);
+        })
+        .catch((e) => {
+          // TODO: Error handling...
+        });
+    }
+  }
+
+  function handleSaveError(err: FormErrors) {
+    timeout(() => {
+      form.clearFieldError("content");
+      form.clearFieldError("contentRaw");
+    });
+  }
+
   return (
     <AppPageContainer
       secondary
@@ -14,21 +76,48 @@ export default function NewNotePage() {
           id="action-buttons"
           className="flex w-full gap-4 xs:ml-auto xs:w-auto"
         >
-          <Button className="flex-1 xs:flex-auto" variant="default">
+          <Button
+            component={Link}
+            href="/app"
+            className="flex-1 xs:flex-auto"
+            variant="default"
+          >
             Discard
           </Button>
-          <Button className="flex-1 xs:flex-auto">Save Note</Button>
+          <Button
+            className="flex-1 xs:flex-auto"
+            type="submit"
+            form="new-note"
+            loading={loading}
+          >
+            Save Note
+          </Button>
         </section>
       </header>
       <article className="flex flex-1 flex-col">
-        <form className="relative flex flex-1 flex-col gap-3 xl:gap-4">
+        <form
+          id="new-note"
+          onSubmit={form.onSubmit(handleSave, handleSaveError)}
+          className="relative flex flex-1 flex-col gap-3 xl:gap-4"
+        >
+          <ErrorAlert
+            title={String(form.errors.content || form.errors.contentRaw)}
+            visible={Boolean(form.errors.content || form.errors.contentRaw)}
+          />
           <TextInput
             radius="xs"
             size="lg"
             classNames={{ input: "text-xl" }}
             placeholder="Note Title"
+            value={form.values.title}
+            onChange={(event) => {
+              form.setFieldValue("title", event.target.value);
+            }}
+            error={form.errors.title}
+            disabled={loading}
           />
-          <Editor />
+
+          <Editor editor={editor} />
         </form>
       </article>
     </AppPageContainer>

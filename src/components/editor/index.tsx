@@ -1,22 +1,14 @@
 "use client";
 
 import { RichTextEditor } from "@mantine/tiptap";
-import CodeBlockLowlight from "@tiptap/extension-code-block-lowlight";
-import { useEditor } from "@tiptap/react";
-import StarterKit from "@tiptap/starter-kit";
-import { common, createLowlight } from "lowlight";
+import { Editor as EditorTipTap } from "@tiptap/react";
 import { KeyboardEvent } from "react";
 
-const lowlight = createLowlight(common);
+interface EditorProps {
+  editor: EditorTipTap | null;
+}
 
-export default function Editor() {
-  const editor = useEditor({
-    extensions: [
-      StarterKit.configure({ codeBlock: false }),
-      CodeBlockLowlight.configure({ lowlight }),
-    ],
-  });
-
+export default function Editor({ editor }: EditorProps) {
   function handleTab(e: KeyboardEvent<HTMLDivElement>) {
     if (e.key === "Tab") {
       e.preventDefault();
@@ -38,9 +30,7 @@ export default function Editor() {
       <RichTextEditor.Toolbar className="gap-x-10 rounded-none dark:bg-mantine-dark-6">
         <RichTextEditor.ControlsGroup className="rounded-none ">
           <RichTextEditor.Blockquote classNames={editorButtonClasses} />
-          <RichTextEditor.BulletList classNames={editorButtonClasses} />
           <RichTextEditor.CodeBlock classNames={editorButtonClasses} />
-
           <RichTextEditor.BulletList classNames={editorButtonClasses} />
           <RichTextEditor.OrderedList classNames={editorButtonClasses} />
         </RichTextEditor.ControlsGroup>

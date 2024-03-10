@@ -4,10 +4,11 @@ import { IoInformationCircleOutline } from "react-icons/io5";
 interface ErrorAlertProps {
   visible: boolean;
   title: string;
+  outline?: boolean;
 }
 
 export default function ErrorAlert(props: ErrorAlertProps) {
-  const { visible, title } = props;
+  const { visible, title, outline } = props;
 
   if (!visible) {
     return null;
@@ -15,7 +16,7 @@ export default function ErrorAlert(props: ErrorAlertProps) {
 
   return (
     <Alert
-      variant={"light"}
+      variant={outline ? "outline" : "light"}
       color="red.9"
       title={title}
       icon={<IoInformationCircleOutline className="text-xl" />}
