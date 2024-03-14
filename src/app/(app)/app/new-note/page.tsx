@@ -6,10 +6,10 @@ import { useRouter } from "next/navigation";
 import { useState } from "react";
 import useApi from "../../../../api/hook";
 import ErrorAlert from "../../../../components/alerts/error-alert";
-import AppPageContainer from "../../../../components/page-containers/app-page-container";
-import useTimeout from "../../../../hooks/use-timeout";
 import Editor from "../../../../components/editor";
 import useEditorInstance from "../../../../components/editor/hook";
+import AppPageContainer from "../../../../components/page-containers/app-page-container";
+import useTimeout from "../../../../hooks/use-timeout";
 
 export default function NewNotePage() {
   const [loading, setLoading] = useState(false);
@@ -18,12 +18,12 @@ export default function NewNotePage() {
     initialValues: {
       title: "",
       content: "",
-      contentRaw: "",
+      content_raw: "",
     },
     validate: {
       title: (val) => (val.length < 3 ? "Title is too short" : null),
       content: (val) => (val.length < 1 ? "The content cannot be empty" : null),
-      contentRaw: (val) =>
+      content_raw: (val) =>
         val.length < 1 ? "The content cannot be empty" : null,
     },
   });
@@ -34,7 +34,7 @@ export default function NewNotePage() {
       const html = editor.getHTML();
       const rawText = editor.getText();
       form.setFieldValue("content", html);
-      form.setFieldValue("contentRaw", rawText);
+      form.setFieldValue("content_raw", rawText);
     },
   });
 
@@ -61,7 +61,7 @@ export default function NewNotePage() {
   function handleSaveError(err: FormErrors) {
     timeout(() => {
       form.clearFieldError("content");
-      form.clearFieldError("contentRaw");
+      form.clearFieldError("content_raw");
     });
   }
 
@@ -101,8 +101,8 @@ export default function NewNotePage() {
           className="relative flex flex-1 flex-col gap-3 xl:gap-4"
         >
           <ErrorAlert
-            title={String(form.errors.content || form.errors.contentRaw)}
-            visible={Boolean(form.errors.content || form.errors.contentRaw)}
+            title={String(form.errors.content || form.errors.content_raw)}
+            visible={Boolean(form.errors.content || form.errors.content_raw)}
           />
           <TextInput
             radius="xs"
