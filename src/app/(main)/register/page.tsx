@@ -56,7 +56,7 @@ export default function Register() {
       email: "",
       name: "",
       password: "",
-      repeatPassword: "",
+      repeat_password: "",
       terms: true,
     },
 
@@ -75,7 +75,7 @@ export default function Register() {
         return null;
       },
       email: (val) => (REGEX_EMAIL.test(val) ? null : "Invalid email"),
-      repeatPassword: (val, values) =>
+      repeat_password: (val, values) =>
         val === values.password ? null : "The passwords don't match",
     },
   });
@@ -157,11 +157,11 @@ export default function Register() {
           required
           label="Repeat Password"
           placeholder="Your password"
-          value={form.values.repeatPassword}
+          value={form.values.repeat_password}
           onChange={(event) =>
-            form.setFieldValue("repeatPassword", event.currentTarget.value)
+            form.setFieldValue("repeat_password", event.currentTarget.value)
           }
-          error={form.errors.repeatPassword}
+          error={form.errors.repeat_password}
           radius="md"
         />
 

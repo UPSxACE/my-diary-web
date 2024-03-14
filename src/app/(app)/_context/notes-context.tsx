@@ -9,18 +9,24 @@ import {
   useState,
 } from "react";
 
+export type OrderByOption =
+  | "Latest First"
+  | "Oldest First"
+  | "Title A-Z"
+  | "Title Z-A";
+
 interface INotesContext {
   menuOpen: boolean;
   setMenuOpen: Dispatch<SetStateAction<boolean>>;
-  orderBy: string | null;
-  setOrderBy: Dispatch<SetStateAction<string | null>>;
+  orderBy: OrderByOption;
+  setOrderBy: Dispatch<SetStateAction<OrderByOption>>;
 }
 
 const defaultValue: INotesContext = {
   menuOpen: false,
   setMenuOpen: (action: SetStateAction<boolean>) => false,
-  orderBy: "",
-  setOrderBy: (action: SetStateAction<string | null>) => false,
+  orderBy: "Latest First",
+  setOrderBy: (action: SetStateAction<OrderByOption>) => false,
 };
 
 export const NotesContext: Context<INotesContext> = createContext(defaultValue);
@@ -29,7 +35,7 @@ export default function NotesContextProvider(props: {
   children: Readonly<ReactNode>;
 }) {
   const [menuOpen, setMenuOpen] = useState(false);
-  const [orderBy, setOrderBy] = useState<string | null>("Latest First");
+  const [orderBy, setOrderBy] = useState<OrderByOption>("Latest First");
 
   return (
     <NotesContext.Provider

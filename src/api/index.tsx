@@ -1,7 +1,7 @@
 "use client";
 import axios, { AxiosInstance } from "axios";
 import { AppRouterInstance } from "next/dist/shared/lib/app-router-context.shared-runtime";
-import { LoginBody, NewNoteBody, RegisterBody } from "./types";
+import { GetNotesParams, LoginBody, NewNoteBody, RegisterBody } from "./types";
 
 const config = {
   baseURL: process.env.NEXT_PUBLIC_API_BASEURL,
@@ -33,8 +33,9 @@ export default class Api {
     this.router = router;
   }
 
-  _get(route: string) {
-    return this.axios.get(route);
+  _get(route: string, params?: Record<string, any>) {
+    const config = params ? { params } : undefined;
+    return this.axios.get(route, config).then((res) => res.data);
   }
 
   _post(route: string, body: { [key: string]: any }) {
@@ -43,6 +44,11 @@ export default class Api {
 
   async getProfile() {
     return this._get("/profile");
+  }
+
+  async getNotes(params: GetNotesParams) {
+    const { order, cursor } = params;
+    return this._get("/notes", { order, cursor });
   }
 
   async postLogin(loginBody: LoginBody) {

@@ -13,5 +13,10 @@ export interface RegisterBody {
 export interface NewNoteBody {
   title: string;
   content: string;
-  contentRaw: string;
+  content_raw: string;
 }
+
+export type GetNotesParams = {
+  order: "latest" | "oldest" | "az" | "za";
+  cursor?: string;
+};

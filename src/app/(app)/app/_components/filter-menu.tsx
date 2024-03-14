@@ -3,24 +3,25 @@
 import { Button, Menu, MenuDropdown, MenuTarget, Select } from "@mantine/core";
 import { useContext, useEffect, useState } from "react";
 import { IoTriangle } from "react-icons/io5";
-import { NotesContext } from "../../_context/notes-context";
+import { NotesContext, OrderByOption } from "../../_context/notes-context";
 
 export default function FilterMenu() {
   const { menuOpen, setMenuOpen, orderBy, setOrderBy } =
     useContext(NotesContext);
-  const [localOrderBy, setLocalOrderBy] = useState<string | null>(orderBy);
+  const [localOrderBy, setLocalOrderBy] = useState<OrderByOption>(orderBy);
 
   function handleMenuTargetClick() {
     setMenuOpen(!menuOpen);
   }
 
   function handleApplyClick() {
+    window.scrollTo(0, 0);
     setOrderBy(localOrderBy);
     setMenuOpen(false);
   }
 
   function handleSelectChange(value: string | null) {
-    setLocalOrderBy(value);
+    setLocalOrderBy(value as OrderByOption);
   }
 
   useEffect(() => {
@@ -35,7 +36,7 @@ export default function FilterMenu() {
         <Button
           radius="xs"
           variant="default"
-          className="text-mantine-gray-8 dark:text-mantine-text ml-auto !transform-none"
+          className="ml-auto !transform-none text-mantine-gray-8 dark:text-mantine-text"
           classNames={{
             root: "px-3",
             section: "ml-2",
@@ -56,6 +57,7 @@ export default function FilterMenu() {
           onChange={handleSelectChange}
           data={["Latest First", "Oldest First", "Title A-Z", "Title Z-A"]}
           classNames={{ label: "mb-[0.35rem]" }}
+          allowDeselect={false}
         />
         <Button
           variant="filled"

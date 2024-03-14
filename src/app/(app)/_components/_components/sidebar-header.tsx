@@ -1,4 +1,5 @@
 import { Avatar, UnstyledButton } from "@mantine/core";
+import Link from "next/link";
 import { IoPerson } from "react-icons/io5";
 import getProfileFromToken from "../../../../actions/get-profile-from-token";
 export default async function SidebarHeader() {
@@ -10,7 +11,11 @@ export default async function SidebarHeader() {
 
   return (
     <div className="mb-4 flex flex-col border-0 border-b border-solid border-mantine-gray-3 pb-4 dark:border-mantine-dark-4">
-      <UnstyledButton className={"flex gap-4 rounded-sm"}>
+      <UnstyledButton
+        className={"flex gap-4 rounded-sm"}
+        component={Link}
+        href="/app"
+      >
         <Avatar
           radius="md"
           size="lg"

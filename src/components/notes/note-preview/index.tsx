@@ -10,16 +10,20 @@ import {
 import Link from "next/link";
 import { FaTrash } from "react-icons/fa";
 import { SlOptions } from "react-icons/sl";
+import { toDateDMYString } from "../../../utils/date";
 
 interface NotePreviewProps {
   id: number;
   title: string;
   content: string;
-  createdAt: string;
+  createdAt: Date;
 }
 
 export default function NotePreview(props: NotePreviewProps) {
   const { id, title, content, createdAt } = props;
+
+  const dmyDate = toDateDMYString(createdAt);
+
   return (
     <Paper
       component="article"
@@ -28,7 +32,7 @@ export default function NotePreview(props: NotePreviewProps) {
       className="transition-all duration-300 hover:shadow-[0_0_11px_rgba(33,33,33,.2)] dark:bg-mantine-dark-6"
     >
       <div className="flex items-center p-4 pb-0 text-gray-400">
-        <span className="text-sm">{createdAt}</span>
+        <span className="text-sm">{dmyDate}</span>
         <Menu position="bottom-end" offset={2}>
           <MenuTarget>
             <UnstyledButton className="ml-auto flex h-full flex-col justify-center p-1 text-lg">

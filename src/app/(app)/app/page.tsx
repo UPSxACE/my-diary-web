@@ -7,9 +7,9 @@ import Notes from "./_components/notes";
 
 export default function AppPage() {
   return (
-    <AppPageContainer secondary className="p-4">
+    <AppPageContainer secondary className="">
       <NotesContextProvider>
-        <header className="relative mb-4 flex w-full gap-4">
+        <header className="sticky top-0 flex w-full gap-4 bg-mantine-gray-0 p-4 dark:bg-mantine-dark-7">
           <TextInput
             placeholder="Search"
             radius="xs"

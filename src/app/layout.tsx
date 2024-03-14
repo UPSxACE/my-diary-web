@@ -2,6 +2,7 @@ import { ColorSchemeScript, MantineProvider } from "@mantine/core";
 import "@mantine/core/styles.css";
 import "@mantine/tiptap/styles.css";
 import ApiProvider from "../api/context";
+import QueryClientProvider from "../contexts/query-client-provider";
 import { theme } from "../theme";
 import "./globals.css";
 
@@ -22,9 +23,11 @@ export default function RootLayout({ children }: { children: any }) {
         />
       </head>
       <body>
-        <MantineProvider theme={theme}>
-          <ApiProvider>{children}</ApiProvider>
-        </MantineProvider>
+        <QueryClientProvider>
+          <MantineProvider theme={theme}>
+            <ApiProvider>{children}</ApiProvider>
+          </MantineProvider>
+        </QueryClientProvider>
       </body>
     </html>
   );
