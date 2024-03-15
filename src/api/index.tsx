@@ -47,8 +47,8 @@ export default class Api {
   }
 
   async getNotes(params: GetNotesParams) {
-    const { order, cursor } = params;
-    return this._get("/notes", { order, cursor });
+    const { search, order, cursor } = params;
+    return this._get("/notes", { search, order, cursor });
   }
 
   async postLogin(loginBody: LoginBody) {

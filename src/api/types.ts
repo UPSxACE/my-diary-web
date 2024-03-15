@@ -17,6 +17,7 @@ export interface NewNoteBody {
 }
 
 export type GetNotesParams = {
+  search?: string;
   order: "latest" | "oldest" | "az" | "za";
   cursor?: string;
 };

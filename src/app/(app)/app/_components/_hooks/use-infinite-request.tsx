@@ -1,11 +1,11 @@
 "use client";
-import { useIntersection } from "@mantine/hooks";
+import { useDebouncedState, useIntersection } from "@mantine/hooks";
 import {
   QueryFunctionContext,
   QueryKey,
   useInfiniteQuery,
 } from "@tanstack/react-query";
-import { useContext, useEffect } from "react";
+import { useContext, useEffect, useState } from "react";
 import useApi from "../../../../../api/hook";
 import { GetNotesParams } from "../../../../../api/types";
 import { NotesContext, OrderByOption } from "../../../_context/notes-context";
@@ -22,10 +22,24 @@ export default function useInfiniteRequest({
 }: {
   intersection: ReturnType<typeof useIntersection>;
 }) {
+  const [firstLoad, setFirstLoad] = useState(true);
+
   const { entry } = intersection;
 
-  const { menuOpen, setMenuOpen, orderBy, setOrderBy } =
-    useContext(NotesContext);
+  const { orderBy, searchFilter } = useContext(NotesContext);
+
+  const [searchFilterDebounced, setSearchFilterDebounced] = useDebouncedState(
+    searchFilter,
+    800,
+  );
+
+  useEffect(() => {
+    setSearchFilterDebounced(searchFilter);
+  }, [searchFilter, setSearchFilterDebounced]);
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [searchFilterDebounced]);
+
   const api = useApi();
 
   async function fetchNotes({
@@ -34,13 +48,14 @@ export default function useInfiniteRequest({
     const res = await api.getNotes({
       order: orderByDictionary[orderBy],
       cursor: pageParam,
+      search: searchFilterDebounced,
     });
     return res;
   }
 
-  const { isLoading, error, data, hasNextPage, fetchNextPage } =
+  const { isSuccess, isLoading, error, data, hasNextPage, fetchNextPage } =
     useInfiniteQuery({
-      queryKey: ["notes" + orderBy],
+      queryKey: ["notes", orderBy, searchFilterDebounced],
       queryFn: fetchNotes,
       initialPageParam: "",
       getNextPageParam: (lastPage, pages) => {
@@ -53,10 +68,23 @@ export default function useInfiniteRequest({
     });
 
   useEffect(() => {
+    if (isSuccess && firstLoad) {
+      setFirstLoad(false);
+    }
+  }, [isSuccess, firstLoad]);
+
+  useEffect(() => {
     if (hasNextPage && entry?.isIntersecting) {
       fetchNextPage();
     }
   }, [hasNextPage, entry?.isIntersecting, fetchNextPage]);
 
-  return { isLoading, error, data, hasNextPage };
+  return {
+    isLoading,
+    error,
+    data,
+    hasNextPage,
+    searchFilterDebounced,
+    firstLoad,
+  };
 }

@@ -15,14 +15,33 @@ export default function Notes() {
     threshold: 0,
   });
 
-  const { isLoading, error, data, hasNextPage } = useInfiniteRequest({
+  const {
+    firstLoad,
+    isLoading,
+    error,
+    data,
+    hasNextPage,
+    searchFilterDebounced,
+  } = useInfiniteRequest({
     intersection,
   });
 
-  const notes = data?.pages.reduce((acc, currPage) => {
-    acc.push(...currPage?.data);
+  const notes = data?.pages?.reduce((acc, currPage) => {
+    const safeData = currPage?.data || [];
+    acc.push(...safeData);
     return acc;
   }, []);
+
+  if ((isLoading || error) && !firstLoad) {
+    return (
+      <section
+        id="notes"
+        className="flex flex-1 flex-col items-center justify-center p-4 px-6 pt-0"
+      >
+        <Loader />
+      </section>
+    );
+  }
 
   const zeroNotes = !isLoading && Array.isArray(notes) && notes?.length === 0;
 
@@ -32,16 +51,22 @@ export default function Notes() {
         id="notes"
         className="flex flex-1 flex-col items-center justify-center p-4 px-6 pt-0"
       >
-        <Image
-          width={557}
-          height={486}
-          className="filter-[drop-shadow] white-img-shadow max-h-[40vh] w-full"
-          src="/notes-girl.svg"
-          alt="Girl writing notes"
-        />
-        <h1 className="mt-8 text-center text-2xl font-medium text-mantine-text xs:text-3xl dark:text-mantine-gray-6">
-          Go ahead, and add your first note!
-        </h1>
+        {!searchFilterDebounced ? (
+          <>
+            <Image
+              width={557}
+              height={486}
+              className="filter-[drop-shadow] white-img-shadow max-h-[40vh] w-full"
+              src="/notes-girl.svg"
+              alt="Girl writing notes"
+            />
+            <h1 className="mt-8 text-center text-2xl font-medium text-mantine-text xs:text-3xl dark:text-mantine-gray-6">
+              Go ahead, and add your first note!
+            </h1>
+          </>
+        ) : (
+          <h1 className="m-0 text-xl font-normal">No results</h1>
+        )}
       </section>
     );
   }
