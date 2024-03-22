@@ -3,11 +3,6 @@ import { EditorOptions, useEditor } from "@tiptap/react";
 import StarterKit from "@tiptap/starter-kit";
 import { common, createLowlight } from "lowlight";
 
-// interface EditorProps {
-//   initialContent?: string;
-//   onUnpdate?: typeof
-// }
-
 const lowlight = createLowlight(common);
 
 export default function useEditorInstance(props: Partial<EditorOptions>) {

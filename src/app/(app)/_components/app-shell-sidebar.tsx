@@ -1,5 +1,4 @@
 import { AppShellNavbar } from "@mantine/core";
-import { cookies } from "next/headers";
 import { RiAddLine, RiFileList2Line } from "react-icons/ri";
 import DarkOverlay from "./_components/dark-overlay";
 import SidebarBody from "./_components/sidebar-body";

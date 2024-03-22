@@ -50,7 +50,7 @@ export default function NewNotePage() {
         .postNotes(values)
         .then((res) => {
           const createdNoteId = res.data;
-          router.push("/note/" + createdNoteId);
+          router.push("/app/note/" + createdNoteId);
         })
         .catch((e) => {
           // TODO: Error handling...

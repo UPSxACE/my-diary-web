@@ -4,3 +4,11 @@
 .white-img-shadow {
   filter: drop-shadow(1px 1px 1px #0000004f);
 }
+
+.hljs {
+  /* background-color: transparent !important; */
+}
+
+#note-view pre {
+  padding: 0 !important;
+}

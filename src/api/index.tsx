@@ -2,19 +2,14 @@
 import axios, { AxiosInstance } from "axios";
 import { AppRouterInstance } from "next/dist/shared/lib/app-router-context.shared-runtime";
 import { GetNotesParams, LoginBody, NewNoteBody, RegisterBody } from "./types";
-
-const config = {
-  baseURL: process.env.NEXT_PUBLIC_API_BASEURL,
-  timeout: 5000,
-  withCredentials: true,
-};
+import { AXIOS_CONFIG } from "./config";
 
 export default class Api {
   axios: AxiosInstance;
   router: AppRouterInstance;
 
   constructor(router: AppRouterInstance) {
-    const axiosInstance = axios.create(config);
+    const axiosInstance = axios.create(AXIOS_CONFIG);
 
     axiosInstance.interceptors.response.use(
       (response) => response,
@@ -44,6 +39,10 @@ export default class Api {
 
   async getProfile() {
     return this._get("/profile");
+  }
+
+  async getNoteById(id: number) {
+    return this._get("/notes/" + id);
   }
 
   async getNotes(params: GetNotesParams) {

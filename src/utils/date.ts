@@ -35,3 +35,15 @@ export function toDateDMYString(date: Date) {
   const year = date.getFullYear();
   return `${day} ${month}, ${year}`;
 }
+
+export function to12HourTimeString(date: Date) {
+  let hours: number | string = date.getHours();
+  let minutes: number | string = date.getMinutes();
+  const ampm = hours >= 12 ? "PM" : "AM";
+  hours = hours % 12;
+  hours = hours ? hours : 12; // the hour '0' should be '12'
+  hours = hours < 10 ? "0" + hours : hours;
+  minutes = minutes < 10 ? "0" + minutes : minutes;
+  const strTime = hours + ":" + minutes + " " + ampm;
+  return strTime;
+}

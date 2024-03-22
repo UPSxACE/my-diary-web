@@ -3,7 +3,13 @@ import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 import "server-only";
 import jwtVerify from "../utils/jwt-verify";
-export default async function getProfileFromToken() {
+
+interface UserProfile {
+  username: string;
+  role: string;
+}
+
+export default async function getProfileFromToken(): Promise<UserProfile | null> {
   const token = cookies().get("authToken")?.value;
 
   if (!token) {

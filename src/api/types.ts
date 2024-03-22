@@ -16,8 +16,8 @@ export interface NewNoteBody {
   content_raw: string;
 }
 
-export type GetNotesParams = {
+export interface GetNotesParams {
   search?: string;
   order: "latest" | "oldest" | "az" | "za";
   cursor?: string;
-};
+}

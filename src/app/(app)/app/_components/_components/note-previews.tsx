@@ -11,7 +11,7 @@ export default function NotePreviews({ notes }: { notes: any }) {
       key={index}
       id={note.id}
       title={note.title}
-      content={note.content_raw}
+      content={note.content_raw.trim()}
       createdAt={new Date(note.created_at)}
     />
   ));
