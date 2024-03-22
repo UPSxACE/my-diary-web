@@ -77,10 +77,10 @@ export default function Article(props: ArticleProps) {
 
   return (
     <TypographyStylesProvider>
-      <article id="note-view" className="flex flex-col gap-6 sm:gap-6">
+      <article id="note-view" className="flex flex-col gap-10">
         <header className="flex flex-col">
-          <div className="mb-6 flex sm:mb-6">
-            <h1>{note.title}</h1>
+          <div className="mb-10 flex">
+            <h1 className="text-5xl">{note.title}</h1>
           </div>
           <div className="flex items-center border-x-0 border-y border-solid border-mantine-gray-3  py-1 text-mantine-dimmed dark:border-mantine-dark-4">
             <div className="flex items-center gap-2 font-semibold">
@@ -89,7 +89,7 @@ export default function Article(props: ArticleProps) {
                 size="lg"
                 classNames={{
                   root: "h-auto w-auto min-w-0 min-h-0",
-                  placeholder: "bg-white text-mantine-gray-5", //"bg-transparent",
+                  placeholder: "bg-transparent text-mantine-gray-5", //"bg-transparent",
                   image: "h-[2.375rem] w-[2.375rem]",
                 }}
                 src={null}

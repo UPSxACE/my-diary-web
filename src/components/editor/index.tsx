@@ -47,6 +47,7 @@ export default function Editor({ editor }: EditorProps) {
           <RichTextEditor.Bold classNames={editorButtonClasses} />
           <RichTextEditor.Code classNames={editorButtonClasses} />
           <RichTextEditor.Italic classNames={editorButtonClasses} />
+          <RichTextEditor.Underline classNames={editorButtonClasses} />
           <RichTextEditor.Strikethrough classNames={editorButtonClasses} />
           <RichTextEditor.ClearFormatting classNames={editorButtonClasses} />
         </RichTextEditor.ControlsGroup>

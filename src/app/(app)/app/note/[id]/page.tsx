@@ -23,8 +23,8 @@ export default async function NoteIdPage({
 
   return (
     <>
-      <header className="flex select-none items-center gap-3 p-2 px-4 text-xl font-medium text-mantine-gray-7">
-        <div className="flex gap-1">
+      <header className="flex select-none items-center gap-3 bg-white p-2 px-4 text-xl font-medium text-mantine-text">
+        <div className="flex gap-3">
           <UnstyledButton
             component={Link}
             href="/app"
@@ -50,7 +50,7 @@ export default async function NoteIdPage({
           </MenuDropdown>
         </Menu>
       </header>
-      <AppPageContainer className="max-w-screen-md p-4 xs:p-10 xs:px-16 sm:py-16 md:px-16">
+      <AppPageContainer className="max-w-[850px] p-4 xs:p-10 xs:px-16 sm:py-16 md:px-16">
         <Article data={noteData} />
       </AppPageContainer>
     </>
