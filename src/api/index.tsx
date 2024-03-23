@@ -1,8 +1,8 @@
 "use client";
 import axios, { AxiosInstance } from "axios";
 import { AppRouterInstance } from "next/dist/shared/lib/app-router-context.shared-runtime";
-import { GetNotesParams, LoginBody, NewNoteBody, RegisterBody } from "./types";
 import { AXIOS_CONFIG } from "./config";
+import { GetNotesParams, LoginBody, NewNoteBody, RegisterBody } from "./types";
 
 export default class Api {
   axios: AxiosInstance;
@@ -34,7 +34,11 @@ export default class Api {
   }
 
   _post(route: string, body: { [key: string]: any }) {
-    return this.axios.post(route, body);
+    return this.axios.post(route, body).then((res) => res.data);
+  }
+
+  _put(route: string, body: { [key: string]: any }) {
+    return this.axios.put(route, body).then((res) => res.data);
   }
 
   async getProfile() {
@@ -43,6 +47,10 @@ export default class Api {
 
   async getNoteById(id: number) {
     return this._get("/notes/" + id);
+  }
+
+  async putNoteById(id: number, noteBody: NewNoteBody) {
+    return this._put("/notes/" + id, noteBody);
   }
 
   async getNotes(params: GetNotesParams) {
