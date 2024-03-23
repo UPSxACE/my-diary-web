@@ -25,7 +25,9 @@ import {
   toDateDMYString,
 } from "../../../../../../utils/date";
 // import "highlight.js/styles/atom-one-light.css";
+import { generateHTML } from "@tiptap/core";
 import { IoPersonCircleOutline } from "react-icons/io5";
+import { editorExtensions } from "../../../../../../components/editor/hook";
 
 hljs.registerLanguage("python", python);
 hljs.registerLanguage("java", java);
@@ -51,7 +53,7 @@ interface NoteData {
   };
   note: {
     title: string;
-    content: TrustedHTML;
+    content: string;
     created_at: string;
   };
 }
@@ -73,7 +75,8 @@ export default function Article(props: ArticleProps) {
     hljs.highlightAll();
   }, []);
 
-  console.log("avatar:", author.avatar_url);
+  const dataJson = JSON.parse(note.content);
+  const dataHtml = generateHTML(dataJson, editorExtensions);
 
   return (
     <TypographyStylesProvider>
@@ -107,7 +110,7 @@ export default function Article(props: ArticleProps) {
         <section
           id="note-content"
           dangerouslySetInnerHTML={{
-            __html: note.content,
+            __html: dataHtml,
           }}
         />
         <footer></footer>

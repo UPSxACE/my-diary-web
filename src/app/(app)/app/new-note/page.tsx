@@ -31,9 +31,9 @@ export default function NewNotePage() {
   const editor = useEditorInstance({
     content: "",
     onUpdate: ({ editor }) => {
-      const html = editor.getHTML();
+      const json = JSON.stringify(editor.getJSON());
       const rawText = editor.getText();
-      form.setFieldValue("content", html);
+      form.setFieldValue("content", json);
       form.setFieldValue("content_raw", rawText);
     },
   });
@@ -48,8 +48,8 @@ export default function NewNotePage() {
       editor.setEditable(false);
       api
         .postNotes(values)
-        .then((res) => {
-          const createdNoteId = res.data;
+        .then((data) => {
+          const createdNoteId = data;
           router.push("/app/note/" + createdNoteId);
         })
         .catch((e) => {

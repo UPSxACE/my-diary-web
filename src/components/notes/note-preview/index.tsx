@@ -55,12 +55,9 @@ export default function NotePreview(props: NotePreviewProps) {
         <h1 className="m-0 mb-1 text-xl text-mantine-text dark:text-white">
           {title}
         </h1>
-        <p
-          className="m-0 line-clamp-[5] h-[7.5rem] whitespace-break-spaces text-base font-medium text-gray-600 dark:text-gray-400"
-          dangerouslySetInnerHTML={{
-            __html: content.replace(/\n\n/g, "<br />").replace(/\n/g, "<br />"),
-          }}
-        />
+        <p className="m-0 line-clamp-[5] h-[7.5rem] whitespace-break-spaces text-base font-medium text-gray-600 dark:text-gray-400">
+          {content}
+        </p>
       </Anchor>
     </Paper>
   );
