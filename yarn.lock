@@ -855,6 +855,18 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@tiptap/html@npm:^2.2.4":
+  version: 2.2.4
+  resolution: "@tiptap/html@npm:2.2.4"
+  dependencies:
+    zeed-dom: "npm:^0.10.9"
+  peerDependencies:
+    "@tiptap/core": ^2.0.0
+    "@tiptap/pm": ^2.0.0
+  checksum: 10c0/9ffe9796687dd496db1f446841dd07c5e7a6e8158fe7f9387a34106176c538e632b9d8162bfb743f243843a0faad9257c11c780c2cec8ad6c3e47671388f2de7
+  languageName: node
+  linkType: hard
+
 "@tiptap/pm@npm:^2.2.4":
   version: 2.2.4
   resolution: "@tiptap/pm@npm:2.2.4"
@@ -1674,6 +1686,13 @@ __metadata:
     shebang-command: "npm:^2.0.0"
     which: "npm:^2.0.1"
   checksum: 10c0/5738c312387081c98d69c98e105b6327b069197f864a60593245d64c8089c8a0a744e16349281210d56835bb9274130d825a78b2ad6853ca13cfbeffc0c31750
+  languageName: node
+  linkType: hard
+
+"css-what@npm:^6.1.0":
+  version: 6.1.0
+  resolution: "css-what@npm:6.1.0"
+  checksum: 10c0/a09f5a6b14ba8dcf57ae9a59474722e80f20406c53a61e9aedb0eedc693b135113ffe2983f4efc4b5065ae639442e9ae88df24941ef159c218b231011d733746
   languageName: node
   linkType: hard
 
@@ -3724,6 +3743,7 @@ __metadata:
     "@tiptap/extension-code-block-lowlight": "npm:^2.2.4"
     "@tiptap/extension-link": "npm:^2.2.4"
     "@tiptap/extension-underline": "npm:^2.2.4"
+    "@tiptap/html": "npm:^2.2.4"
     "@tiptap/pm": "npm:^2.2.4"
     "@tiptap/react": "npm:^2.2.4"
     "@tiptap/starter-kit": "npm:^2.2.4"
@@ -5828,5 +5848,14 @@ __metadata:
   version: 0.1.0
   resolution: "yocto-queue@npm:0.1.0"
   checksum: 10c0/dceb44c28578b31641e13695d200d34ec4ab3966a5729814d5445b194933c096b7ced71494ce53a0e8820685d1d010df8b2422e5bf2cdea7e469d97ffbea306f
+  languageName: node
+  linkType: hard
+
+"zeed-dom@npm:^0.10.9":
+  version: 0.10.11
+  resolution: "zeed-dom@npm:0.10.11"
+  dependencies:
+    css-what: "npm:^6.1.0"
+  checksum: 10c0/68c22a1324af9ce45ec49ba7aaf86492c7b87c2fa307664a0a4d8dcd0a279ff97221787f5f1354f52fe9ac9a27559214d1b4c283374a1993c38c6242c4b0ac8b
   languageName: node
   linkType: hard

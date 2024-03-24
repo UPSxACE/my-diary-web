@@ -1,7 +1,13 @@
 "use client";
 import NotePreview from "../../../../../components/notes/note-preview";
 
-export default function NotePreviews({ notes }: { notes: any }) {
+export default function NotePreviews({
+  notes,
+  refetch,
+}: {
+  notes: any;
+  refetch: () => void;
+}) {
   if (!Array.isArray(notes)) {
     return null;
   }
@@ -13,6 +19,7 @@ export default function NotePreviews({ notes }: { notes: any }) {
       title={note.title}
       content={note.content_raw.trim()}
       createdAt={new Date(note.created_at)}
+      refetch={refetch}
     />
   ));
 }

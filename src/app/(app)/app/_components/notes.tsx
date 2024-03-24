@@ -22,6 +22,7 @@ export default function Notes() {
     data,
     hasNextPage,
     searchFilterDebounced,
+    refetch,
   } = useInfiniteRequest({
     intersection,
   });
@@ -77,7 +78,7 @@ export default function Notes() {
       className="grid flex-1 auto-rows-min grid-cols-1 gap-4 p-4 pt-0 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4"
     >
       {!isLoading && !error ? (
-        <NotePreviews notes={notes} />
+        <NotePreviews notes={notes} refetch={refetch} />
       ) : (
         <ElementRepeater nRepeat={16} element={<NotePreviewSkeleton />} />
       )}

@@ -1,3 +1,5 @@
+"use client";
+
 import {
   Anchor,
   Menu,
@@ -8,8 +10,9 @@ import {
   UnstyledButton,
 } from "@mantine/core";
 import Link from "next/link";
-import { FaTrash } from "react-icons/fa";
+import { FaPencilAlt, FaTrash } from "react-icons/fa";
 import { SlOptions } from "react-icons/sl";
+import useApi from "../../../api/hook";
 import { toDateDMYString } from "../../../utils/date";
 
 interface NotePreviewProps {
@@ -17,12 +20,19 @@ interface NotePreviewProps {
   title: string;
   content: string;
   createdAt: Date;
+  refetch: () => void;
 }
 
 export default function NotePreview(props: NotePreviewProps) {
-  const { id, title, content, createdAt } = props;
+  const api = useApi();
+
+  const { id, title, content, createdAt, refetch } = props;
 
   const dmyDate = toDateDMYString(createdAt);
+
+  function deleteNote() {
+    api.deleteNoteById(id).then(() => refetch());
+  }
 
   return (
     <Paper
@@ -40,7 +50,19 @@ export default function NotePreview(props: NotePreviewProps) {
             </UnstyledButton>
           </MenuTarget>
           <MenuDropdown className="p-1">
-            <MenuItem leftSection={<FaTrash />} className="py-1">
+            <MenuItem
+              component={Link}
+              leftSection={<FaPencilAlt />}
+              className="py-1"
+              href={"/app/note/" + id + "/edit"}
+            >
+              Edit
+            </MenuItem>
+            <MenuItem
+              leftSection={<FaTrash />}
+              className="py-1"
+              onClick={deleteNote}
+            >
               Delete
             </MenuItem>
           </MenuDropdown>
@@ -56,7 +78,7 @@ export default function NotePreview(props: NotePreviewProps) {
           {title}
         </h1>
         <p className="m-0 line-clamp-[5] h-[7.5rem] whitespace-break-spaces text-base font-medium text-gray-600 dark:text-gray-400">
-          {content}
+          {content.replaceAll("\n\n", "\n")}
         </p>
       </Anchor>
     </Paper>

@@ -53,19 +53,27 @@ export default function useInfiniteRequest({
     return res;
   }
 
-  const { isSuccess, isLoading, error, data, hasNextPage, fetchNextPage } =
-    useInfiniteQuery({
-      queryKey: ["notes", orderBy, searchFilterDebounced],
-      queryFn: fetchNotes,
-      initialPageParam: "",
-      getNextPageParam: (lastPage, pages) => {
-        const nextCursor = lastPage?.pagination?.cursor;
-        if (nextCursor === "") {
-          return null;
-        }
-        return lastPage?.pagination?.cursor;
-      },
-    });
+  const {
+    isSuccess,
+    isLoading,
+    error,
+    data,
+    hasNextPage,
+    fetchNextPage,
+    refetch,
+    isRefetching,
+  } = useInfiniteQuery({
+    queryKey: ["notes", orderBy, searchFilterDebounced],
+    queryFn: fetchNotes,
+    initialPageParam: "",
+    getNextPageParam: (lastPage, pages) => {
+      const nextCursor = lastPage?.pagination?.cursor;
+      if (nextCursor === "") {
+        return null;
+      }
+      return lastPage?.pagination?.cursor;
+    },
+  });
 
   useEffect(() => {
     if (isSuccess && firstLoad) {
@@ -86,5 +94,6 @@ export default function useInfiniteRequest({
     hasNextPage,
     searchFilterDebounced,
     firstLoad,
+    refetch,
   };
 }

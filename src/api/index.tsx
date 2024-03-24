@@ -28,17 +28,22 @@ export default class Api {
     this.router = router;
   }
 
-  _get(route: string, params?: Record<string, any>) {
+  async _get(route: string, params?: Record<string, any>) {
     const config = params ? { params } : undefined;
     return this.axios.get(route, config).then((res) => res.data);
   }
 
-  _post(route: string, body: { [key: string]: any }) {
+  async _post(route: string, body: { [key: string]: any }) {
     return this.axios.post(route, body).then((res) => res.data);
   }
 
-  _put(route: string, body: { [key: string]: any }) {
+  async _put(route: string, body: { [key: string]: any }) {
     return this.axios.put(route, body).then((res) => res.data);
+  }
+
+  async _delete(route: string, params?: Record<string, any>) {
+    const config = params ? { params } : undefined;
+    return this.axios.delete(route, config).then((res) => res.data);
   }
 
   async getProfile() {
@@ -51,6 +56,10 @@ export default class Api {
 
   async putNoteById(id: number, noteBody: NewNoteBody) {
     return this._put("/notes/" + id, noteBody);
+  }
+
+  async deleteNoteById(id: number) {
+    return this._delete("/notes/" + id);
   }
 
   async getNotes(params: GetNotesParams) {

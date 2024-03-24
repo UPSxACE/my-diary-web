@@ -9,7 +9,6 @@ export default async function ssrNote(id: number) {
   if (!token) {
     return null;
   }
-
   const axiosInstance = axios.create(AXIOS_CONFIG);
 
   const { data } = await axiosInstance
@@ -19,7 +18,6 @@ export default async function ssrNote(id: number) {
       },
     })
     .catch((err) => {
-      console.log(err);
       return notFound();
     });
 

@@ -25,7 +25,7 @@ import {
   toDateDMYString,
 } from "../../../../../../utils/date";
 // import "highlight.js/styles/atom-one-light.css";
-import { generateHTML } from "@tiptap/core";
+import { generateHTML } from "@tiptap/html";
 import { IoPersonCircleOutline } from "react-icons/io5";
 import { editorExtensions } from "../../../../../../components/editor/hook";
 

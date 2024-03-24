@@ -104,7 +104,7 @@ export default function EditNotePage({ params }: { params: { id: number } }) {
         >
           <Button
             component={Link}
-            href="/app"
+            href={"/app/note/" + params.id}
             className="flex-1 xs:flex-auto"
             variant="default"
           >

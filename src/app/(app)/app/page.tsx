@@ -8,7 +8,7 @@ export default function AppPage() {
   return (
     <AppPageContainer secondary className="">
       <NotesContextProvider>
-        <header className="sticky top-0 flex w-full gap-4 bg-mantine-gray-0 p-4 dark:bg-mantine-dark-7">
+        <header className="sticky top-0 z-10 flex w-full gap-4 bg-mantine-gray-0 p-4 dark:bg-mantine-dark-7">
           <SearchInput />
           <FilterMenu />
         </header>
