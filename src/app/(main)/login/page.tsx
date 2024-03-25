@@ -15,6 +15,7 @@ import { useState } from "react";
 import useApi from "../../../api/hook";
 import ErrorAlert from "../../../components/alerts/error-alert";
 import PageContainer from "../../../components/page-containers/page-container";
+import ForgotPasswordWip from "./_components/forgot-password-wip";
 
 export default function Login() {
   const [overlay, setOverlay] = useState(false);
@@ -104,14 +105,7 @@ export default function Login() {
         />
 
         <div className="flex flex-wrap items-center gap-4">
-          <Anchor
-            component={Link}
-            // TODO: Forgot password implementation
-            href="/forgot-password"
-            className="text-xs text-mantine-dimmed"
-          >
-            Forgot your password?
-          </Anchor>
+          <ForgotPasswordWip />
           <Button className="ml-auto" type="submit" radius="xl">
             Login
           </Button>
