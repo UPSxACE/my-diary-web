@@ -167,7 +167,16 @@ export default function Register() {
 
         <div className="flex flex-wrap items-center gap-4 max-xs:flex-col">
           <Checkbox
-            label="I accept terms and conditions"
+            label={
+              <Link
+                target="_blank"
+                href="/privacy-policy"
+                className="text-black"
+                rel="noopener noreferrer"
+              >
+                I accept terms and conditions
+              </Link>
+            }
             checked={form.values.terms}
             onChange={(event) =>
               form.setFieldValue("terms", event.currentTarget.checked)
