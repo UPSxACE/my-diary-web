@@ -14,14 +14,14 @@ export default async function AppShellHeader({
   // Decide menu items here
   // Then pass down to components
   return (
-    <AppShellHeaderMantine className="flex justify-center px-4 border-transparent">
-      <div className="flex flex-1 max-w-screen-lg items-center">
+    <AppShellHeaderMantine className="flex justify-center border-transparent">
+      <div className="flex max-w-screen-lg flex-1 items-center px-4">
         <Logo />
 
         <BurgerMenu />
         <ExpandedMenu />
 
-        <div className="flex-1 hidden xs:flex gap-2 justify-end items-center flex-wrap">
+        <div className="hidden flex-1 flex-wrap items-center justify-end gap-2 xs:flex">
           {loggedIn ? (
             <>
               <LogoutButton />

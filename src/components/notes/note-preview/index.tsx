@@ -12,6 +12,7 @@ import {
 import Link from "next/link";
 import { FaPencilAlt, FaTrash } from "react-icons/fa";
 import { SlOptions } from "react-icons/sl";
+import revalidateNoteCache from "../../../actions/revalidate-note-cache";
 import useApi from "../../../api/hook";
 import { toDateDMYString } from "../../../utils/date";
 
@@ -31,6 +32,7 @@ export default function NotePreview(props: NotePreviewProps) {
   const dmyDate = toDateDMYString(createdAt);
 
   function deleteNote() {
+    revalidateNoteCache(id);
     api.deleteNoteById(id).then(() => refetch());
   }
 

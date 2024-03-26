@@ -14,6 +14,7 @@ import { useRouter } from "next/navigation";
 import { FaPencilAlt, FaTrash } from "react-icons/fa";
 import { SlOptions } from "react-icons/sl";
 import useApi from "../../../../../../api/hook";
+import revalidateNoteCache from "../../../../../../actions/revalidate-note-cache";
 
 export default function PageOptionsHeader({ noteId }: { noteId: number }) {
   const [opened, { open, close }] = useDisclosure(false);
@@ -25,7 +26,8 @@ export default function PageOptionsHeader({ noteId }: { noteId: number }) {
     open();
     api
       .deleteNoteById(noteId)
-      .then(() => {
+      .then(async () => {
+        await revalidateNoteCache(noteId)
         router.push("/app");
       })
       .catch(() => {

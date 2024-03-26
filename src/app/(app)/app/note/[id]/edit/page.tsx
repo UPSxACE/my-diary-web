@@ -4,6 +4,7 @@ import { FormErrors, useForm } from "@mantine/form";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
+import revalidateNoteCache from "../../../../../../actions/revalidate-note-cache";
 import useApi from "../../../../../../api/hook";
 import ErrorAlert from "../../../../../../components/alerts/error-alert";
 import Editor from "../../../../../../components/editor";
@@ -50,7 +51,8 @@ export default function EditNotePage({ params }: { params: { id: number } }) {
       editor.setEditable(false);
       api
         .putNoteById(params.id, values)
-        .then((res) => {
+        .then(async (res) => {
+          await revalidateNoteCache(params.id);
           router.push("/app/note/" + params.id);
         })
         .catch((e) => {
