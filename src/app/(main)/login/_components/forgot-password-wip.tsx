@@ -2,7 +2,7 @@
 
 import { Button } from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
-import WipModal from "../../../../components/wip/wip-modal";
+import WipModal from "../../../../components/wip-modal";
 
 export default function ForgotPasswordWip() {
   const [opened, { open, close }] = useDisclosure(false);

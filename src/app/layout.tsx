@@ -2,6 +2,7 @@ import { ColorSchemeScript, MantineProvider } from "@mantine/core";
 import "@mantine/core/styles.css";
 import "@mantine/tiptap/styles.css";
 import ApiProvider from "../api/context";
+import CookiesWarning from "../components/cookies-warning";
 import QueryClientProvider from "../contexts/query-client-provider";
 import { theme } from "../theme";
 import "./globals.css";
@@ -25,7 +26,10 @@ export default function RootLayout({ children }: { children: any }) {
       <body>
         <QueryClientProvider>
           <MantineProvider theme={theme}>
-            <ApiProvider>{children}</ApiProvider>
+            <ApiProvider>
+              <CookiesWarning />
+              {children}
+            </ApiProvider>
           </MantineProvider>
         </QueryClientProvider>
       </body>
